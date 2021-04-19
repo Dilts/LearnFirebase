@@ -138,6 +138,41 @@ struct FirebaseDemoApp: App {
             
             
         }
+        
+        //MARK: Snapshot listeners
+        
+        // Add a snapshot lister to the document
+        let listener1 = document.addSnapshotListener { (docSnapshot, error) in
+            
+            // check for errors
+            
+            // Data is recieved every time a change is made to a document
+            print(docSnapshot!.data()!)
+            
+        }
+        
+        // Add a snapshot listener to the reservations collection
+        let listener2 = reservations.addSnapshotListener { (querySnapshot, error) in
+            
+            // check for errors
+            
+            // handle changes from DB
+            for doc in querySnapshot!.documentChanges {
+                
+                print(doc.document.data())
+                
+            }
+            
+        }
+        
+        // Remove the snapshot listeners
+        
+        listener1.remove()
+        listener2.remove()
+        
+        //MARK: Query data from DB
+        
+        
          
         
     } // End of makeReservation method
